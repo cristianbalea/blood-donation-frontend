@@ -6,6 +6,7 @@ function LoginPage() {
   const passRef = useRef();
   const navigate = useNavigate();
 
+
   function login() {
     const email = emailRef.current.value;
     const pass = passRef.current.value;

@@ -1,0 +1,6 @@
+.nostyle div {
+    margin-bottom: 0.25rem;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+} 

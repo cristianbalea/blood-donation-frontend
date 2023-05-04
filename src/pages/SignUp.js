@@ -16,7 +16,7 @@ function SignUpPage() {
   }
 
   function validateEmail(email) {
-    if (!email.includes("@donate.ro")) return false;
+    if (email === "") return false;
     return true;
   }
 
@@ -88,10 +88,15 @@ function SignUpPage() {
         "Content-Type": "application/json",
       },
     }).then((response) => {
-      console.log(response);
-      response.json().then((body) => {
-        console.log(body);
-      });
+      if (response.status === 400) {
+        alert("Account already exists!");
+      } else {
+        console.log(response);
+        response.json().then((body) => {
+          console.log(body);
+          alert("Account created!");
+        });
+      }
     });
   }
 

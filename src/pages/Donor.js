@@ -5,7 +5,8 @@ import Backdrop from "../components/Backdrop";
 import ModalEdit from "../components/ModalEditDonor";
 import ModalAppointments from "../components/ModalAppointments";
 import ModalNewAppointment from "../components/ModalNewAppointment";
-import ModalDeleteAppointment from "../components/ModalDeleteAppointment"
+import ModalDeleteAppointment from "../components/ModalDeleteAppointment";
+import ModalNotifications from "../components/ModalNotifications";
 
 function DonorPage() {
   const location = useLocation();
@@ -16,6 +17,7 @@ function DonorPage() {
   const [showModalNewAppointment, setShowModalNewAppointment] = useState();
   const [showModalAppointments, setShowModalAppointments] = useState();
   const [showModalDelete, setShowModalDelete] = useState();
+  const [showModalNotify, setShowModalNotify] = useState();
 
   function showModalLocationsHandler() {
     setShowModalLocations(true);
@@ -41,6 +43,12 @@ function DonorPage() {
   function closeModalAppointmentsHandler() {
     setShowModalAppointments(false);
   }
+  function showModalNotifyHandler() {
+    setShowModalNotify(true);
+  }
+  function closeModalNotifyHandler() {
+    setShowModalNotify(false);
+  }
   function showModalDeleteHandler() {
     setShowModalDelete(true);
   }
@@ -59,9 +67,30 @@ function DonorPage() {
     }
   }
 
+  const [smsRemind, setSmsRemind] = useState();
+  const [mailRemind, setMailRemind] = useState();
+
+  //var smsRemind = false;
+  //var mailRemind = false;
+
+  function getDonor() {
+    const id = location.state.donorId;
+    fetch("http://localhost:8080/donor?donorId=" + id, {
+      method: "GET",
+    }).then((response) => {
+      response.json().then((body) => {
+        setSmsRemind(body.smsRemind);
+        setMailRemind(body.mailRemind);
+        //console.log(smsRemind);
+        //console.log(mailRemind);
+      })
+    });
+  }
+
   return (
     <div>
       {/* <h1>{location.state.donorId}</h1> */}
+      {getDonor()}
       <h1>Menu</h1>
       <ul>
         <li>
@@ -78,15 +107,16 @@ function DonorPage() {
           </button>
         </li>
         <li>
-          <button onClick={showModalDeleteHandler}>
-            DELETE APPOINTMENT
-          </button>
+          <button onClick={showModalDeleteHandler}>DELETE APPOINTMENT</button>
         </li>
         <li>
           <button onClick={showModalLocationsHandler}>LOCATIONS</button>
         </li>
         <li>
           <button onClick={deleteAccount}>Delete account</button>
+        </li>
+        <li>
+          <button onClick={showModalNotifyHandler}>Notifications</button>
         </li>
 
         {showModalLocations && (
@@ -120,13 +150,20 @@ function DonorPage() {
             onClose={closeModalNewAppointmentHandler}
           />
         )}
-        {showModalDelete && (
-          <Backdrop onClick={closeModalDeleteHandler} />
-        )}
+        {showModalDelete && <Backdrop onClick={closeModalDeleteHandler} />}
         {showModalDelete && (
           <ModalDeleteAppointment
             id={location.state.donorId}
             onClose={closeModalDeleteHandler}
+          />
+        )}
+        {showModalNotify && <Backdrop onClick={closeModalNotifyHandler} />}
+        {showModalNotify && (
+          <ModalNotifications
+            smsRemind={smsRemind}
+            mailRemind={mailRemind}
+            id={location.state.donorId}
+            onClose={closeModalNotifyHandler}
           />
         )}
       </ul>

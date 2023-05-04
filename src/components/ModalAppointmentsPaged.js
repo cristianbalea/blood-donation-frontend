@@ -1,3 +1,4 @@
+
 function ModalAppointmentsPaged(props) {
   var offset = 0;
 
@@ -23,9 +24,9 @@ function ModalAppointmentsPaged(props) {
 
   function showAppointmentsNext() {
     if (offset < 0) offset = 0;
-    if(offset > numberOfAppointments) offset -=3;
+    if (offset > numberOfAppointments) offset -= 3;
     const pageNumber = document.getElementById("pageNr");
-    if(pageNumber !== null) pageNumber.innerHTML = "Page" + (offset/3 + 1);
+    if (pageNumber !== null) pageNumber.innerHTML = "Page" + (offset / 3 + 1);
 
     const ul = document.getElementById("appointmentList");
     if (ul !== null) ul.innerHTML = "";
@@ -81,9 +82,9 @@ function ModalAppointmentsPaged(props) {
 
   function showAppointmentsPrev() {
     if (offset < 0) offset = 0;
-    if(offset > numberOfAppointments) offset -=3;
+    if (offset > numberOfAppointments) offset -= 3;
     const pageNumber = document.getElementById("pageNr");
-    if(pageNumber !== null) pageNumber.innerHTML = "Page" + (offset/3 + 1);
+    if (pageNumber !== null) pageNumber.innerHTML = "Page" + (offset / 3 + 1);
 
     const ul = document.getElementById("appointmentList");
     if (ul !== null) ul.innerHTML = "";
@@ -139,7 +140,7 @@ function ModalAppointmentsPaged(props) {
 
   return (
     <div className="modal">
-        {getNumberOfAppointments()}
+      {getNumberOfAppointments()} // Component cu appointment
       <h1>Appointments</h1>
       <label id="pageNr">Page 1</label>
       <button onClick={showAppointmentsPrev}>Previous</button>
