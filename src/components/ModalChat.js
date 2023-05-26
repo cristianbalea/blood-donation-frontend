@@ -29,7 +29,7 @@ function ModalChat(props) {
       headers: {
         "Content-Type": "application/json",
         Authorization:
-          "Bearer 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",
+          "",
       },
     }).then((response) => {
       response.json().then((body) => {
