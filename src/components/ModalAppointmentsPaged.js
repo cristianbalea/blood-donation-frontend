@@ -140,7 +140,7 @@ function ModalAppointmentsPaged(props) {
 
   return (
     <div className="modal">
-      {getNumberOfAppointments()} // Component cu appointment
+      {getNumberOfAppointments()}
       <h1>Appointments</h1>
       <label id="pageNr">Page 1</label>
       <button onClick={showAppointmentsPrev}>Previous</button>

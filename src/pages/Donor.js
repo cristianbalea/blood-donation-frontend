@@ -7,6 +7,7 @@ import ModalAppointments from "../components/ModalAppointments";
 import ModalNewAppointment from "../components/ModalNewAppointment";
 import ModalDeleteAppointment from "../components/ModalDeleteAppointment";
 import ModalNotifications from "../components/ModalNotifications";
+import ModalChat from "../components/ModalChat";
 
 function DonorPage() {
   const location = useLocation();
@@ -18,6 +19,7 @@ function DonorPage() {
   const [showModalAppointments, setShowModalAppointments] = useState();
   const [showModalDelete, setShowModalDelete] = useState();
   const [showModalNotify, setShowModalNotify] = useState();
+  const [showModalChat, setShowModalChat] = useState();
 
   function showModalLocationsHandler() {
     setShowModalLocations(true);
@@ -54,6 +56,12 @@ function DonorPage() {
   }
   function closeModalDeleteHandler() {
     setShowModalDelete(false);
+  }
+  function showModalChatHandler() {
+    setShowModalChat(true);
+  }
+  function closeModalChatHandler() {
+    setShowModalChat(false);
   }
 
   function deleteAccount() {
@@ -118,6 +126,9 @@ function DonorPage() {
         <li>
           <button onClick={showModalNotifyHandler}>Notifications</button>
         </li>
+        <li>
+          <button onClick={showModalChatHandler}>Chat Assistant</button>
+        </li>
 
         {showModalLocations && (
           <Backdrop onClick={closeModalLocationsHandler} />
@@ -166,7 +177,15 @@ function DonorPage() {
             onClose={closeModalNotifyHandler}
           />
         )}
+        {showModalChat && <Backdrop onClick={closeModalChatHandler} />}
+        {showModalChat && (
+          <ModalChat
+            id={location.state.donorId}
+            onClose={closeModalNotifyHandler}
+          />
+        )}
       </ul>
+      
     </div>
   );
 }

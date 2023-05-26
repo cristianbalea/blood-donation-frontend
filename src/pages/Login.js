@@ -33,6 +33,7 @@ function LoginPage() {
           alert("User not found!");
         } else {
           response.json().then((body) => {
+            
             console.log(body);
             if (body.role === "DOCTOR") {
               fetch(

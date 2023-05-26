@@ -83,6 +83,11 @@ function ModalCreate(props) {
       },
     }).then((response) => {
       console.log(response);
+      if(response.status === 400) {
+        alert("Doctor already exists!")
+      } else {
+        alert("Doctor created!");
+      }
       response.json().then((body) => {
         console.log(body);
       });
